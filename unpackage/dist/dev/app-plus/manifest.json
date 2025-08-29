@@ -122,6 +122,12 @@
           "text": "我的"
         }
       ],
+      "condition": {
+        "platform": [
+          "app-plus",
+          "mp-weixin"
+        ]
+      },
       "selectedIndex": 0,
       "shown": true,
       "child": [

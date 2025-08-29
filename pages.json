@@ -37,7 +37,10 @@
 	        "pagePath": "pages/login/login",
 	        "text": "我的"
 	      }
-	    ]
+	    ],
+		"condition": {
+		      "platform": ["app-plus", "mp-weixin"] // 仅在 App 和微信小程序显示 //失败
+		}
 	  },
 	  "h5": {
 	      "router": {
