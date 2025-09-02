@@ -19,6 +19,13 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/test/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"tabBar": {
@@ -36,7 +43,11 @@
 	      {
 	        "pagePath": "pages/login/login",
 	        "text": "我的"
-	      }
+	      },
+		  {
+		    "pagePath": "pages/test/test",
+		    "text": "test"
+		  }
 	    ],
 		"condition": {
 		      "platform": ["app-plus", "mp-weixin"] // 仅在 App 和微信小程序显示 //失败
