@@ -43,42 +43,38 @@
 			const isLoading = ref(false);
 			const responseResult = ref('');
 
-			// 登录处理（使用原生uni.request）
-			const handleLogin = async () => {
+			// 登录处理（不使用Promise，直接用回调）
+			const handleLogin = () => {
 				isLoading.value = true;
 				responseResult.value = ''; // 清空之前的结果
-				
-				try {
-					// 原生请求包装为Promise，方便使用await
-					const res = await new Promise((resolve, reject) => {
-						uni.request({
-							url: 'http://127.0.0.1:8080/api/user/login',
-							method: 'POST',
-							header: {
-								'Content-Type': 'application/json'
-							},
-							data: {
-								username: username.value.trim(),
-								password: password.value.trim()
-							},
-							success: (response) => {
-								resolve(response.data);
-							},
-							fail: (err) => {
-								reject(err);
-							}
-						});
-					});
 
-					// 显示响应结果
-					responseResult.value = JSON.stringify(res, null, 2);
-
-				} catch (err) {
-					// 错误处理
-					responseResult.value = `请求失败: ${JSON.stringify(err, null, 2)}`;
-				} finally {
-					isLoading.value = false;
-				}
+				uni.request({
+					url: 'http://127.0.0.1:8088/api/user/login',
+					method: 'POST',
+					header: {
+						'Content-Type': 'application/json'
+					},
+					data: {
+						username: username.value.trim(),
+						password: password.value.trim()
+					},
+					success: (response) => {
+						// 处理成功响应
+						if (response.data?.data?.token) {
+							uni.setStorageSync('token', response.data.data.token);
+						}
+						// 可以在这里处理响应数据
+						// responseResult.value = JSON.stringify(response.data, null, 2);
+					},
+					fail: (err) => {
+						// 处理错误
+						responseResult.value = `请求失败: ${JSON.stringify(err, null, 2)}`;
+					},
+					complete: () => {
+						// 无论成功失败都会执行，用于清理加载状态
+						isLoading.value = false;
+					}
+				});
 			};
 
 			return {
@@ -93,5 +89,20 @@
 </script>
 
 <style scoped>
-	/* 移除所有样式 */
+	/* 可以添加一些基础样式让界面更美观 */
+	view {
+		margin: 15rpx 0;
+	}
+	input {
+		border: 1px solid #eee;
+		padding: 20rpx;
+		border-radius: 8rpx;
+	}
+	button {
+		background-color: #007aff;
+		color: white;
+		padding: 20rpx;
+		border-radius: 8rpx;
+		width: 100%;
+	}
 </style>

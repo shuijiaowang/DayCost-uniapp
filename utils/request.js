@@ -1,6 +1,6 @@
 
 // 基础URL
-const baseUrl = 'http://127.0.0.1:8080/api';
+const baseUrl = 'http://127.0.0.1:8088/api';
 
 /**
  * 封装uni.request
@@ -65,11 +65,8 @@ const request = (req) => {
 							url: '/pages/login/login'
 						});
 					}
-
-
 					return reject(new Error(responseData.message || '接口返回错误'));
 				}
-
 				// 请求成功，返回数据,只返回数据？
 				resolve(responseData.data);
 			},
